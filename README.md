@@ -116,6 +116,211 @@ FROM international_debt;
 
 2- Finding out the distinct debt indicators
 
+We can see there are a total of 124 countries present on the table. As we saw in the first section, there is a column called indicator_name that briefly specifies the purpose of taking the debt. Just beside that column, there is another column called indicator_code which symbolizes the category of these debts. Knowing about these various debt indicators will help us to understand the areas in which a country can possibly be indebted to.
+
+
+```sql
+SELECT DISTINCT indicator_code AS distinct_debt_indicators
+FROM international_debt
+ORDER BY distinct_debt_indicators
+
+```
+
+
+| distinct_debt_indicators |
+| ------------------------ |
+| DT.AMT.BLAT.CD           |
+| DT.AMT.DLXF.CD           |
+| DT.AMT.DPNG.CD           |
+| DT.AMT.MLAT.CD           |
+| DT.AMT.OFFT.CD           |
+| DT.AMT.PBND.CD           |
+| DT.AMT.PCBK.CD           |
+| DT.AMT.PROP.CD           |
+| DT.AMT.PRVT.CD           |
+| DT.DIS.BLAT.CD           |
+| DT.DIS.DLXF.CD           |
+| DT.DIS.MLAT.CD           |
+| DT.DIS.OFFT.CD           |
+| DT.DIS.PCBK.CD           |
+| DT.DIS.PROP.CD           |
+| DT.DIS.PRVT.CD           |
+| DT.INT.BLAT.CD           |
+| DT.INT.DLXF.CD           |
+| DT.INT.DPNG.CD           |
+| DT.INT.MLAT.CD           |
+| DT.INT.OFFT.CD           |
+| DT.INT.PBND.CD           |
+| DT.INT.PCBK.CD           |
+| DT.INT.PROP.CD           |
+| DT.INT.PRVT.CD           |
+
+
+
+3- Totaling the amount of debt owed by the countries
+
+As mentioned earlier, the financial debt of a particular country represents its economic state. But if we were to project this on an overall global scale, how will we approach it?
+
+Let's switch gears from the debt indicators now and find out the total amount of debt (in USD) that is owed by the different countries. This will give us a sense of how the overall economy of the entire world is holding up.
+
+```sql
+SELECT 
+    ROUND(SUM(debt)/ 1000000, 2)  AS total_debt
+FROM international_debt; 
+```
+
+
+| total_debt |
+| ---------- |
+| 3079734.49 |
+
+
+
+
+4- Country with the highest debt
+
+"Human beings cannot comprehend very large or very small numbers. It would be useful for us to acknowledge that fact." - Daniel Kahneman. That is more than 3 million million USD, an amount which is really hard for us to fathom.
+
+Now that we have the exact total of the amounts of debt owed by several countries, let's now find out the country that owns the highest amount of debt along with the amount. Note that this debt is the sum of different debts owed by a country across several categories. This will help to understand more about the country in terms of its socio-economic scenarios. We can also find out the category in which the country owns its highest debt. But we will leave that for now.
+
+
+
+```sql
+SELECT 
+    country_name, 
+    SUM(debt) AS total_debt
+FROM international_debt
+GROUP BY country_name
+ORDER BY total_debt DESC
+LIMIT 1
+```
+
+
+| country_name | total_debt       |
+| ------------ | ---------------- |
+| China        | 285793494734.20  |
+
+
+
+
+
+5-Average amount of debt across indicators
+
+We now have a brief overview of the dataset and a few of its summary statistics. We already have an idea of the different debt indicators in which the countries owe their debts. We can dig even further to find out on an average how much debt a country owes? This will give us a better sense of the distribution of the amount of debt across different indicators.
+
+
+
+```sql
+
+SELECT 
+    indicator_code AS debt_indicator,
+    indicator_name,
+    AVG(debt) AS average_debt
+FROM international_debt
+GROUP BY debt_indicator,indicator_name
+ORDER BY average_debt DESC
+LIMIT 10;
+
+```
+
+| debt_indicator | indicator_name                                                                                                  | average_debt            |
+| -------------- | -------------------------------------------------------------------------------------------------------------- | ----------------------- |
+| DT.AMT.DLXF.CD | Principal repayments on external debt, long-term (AMT, current US$)                                             | 5904868401.499193612     |
+| DT.AMT.DPNG.CD | Principal repayments on external debt, private nonguaranteed (PNG) (AMT, current US$)                          | 5161194333.812658349     |
+| DT.DIS.DLXF.CD | Disbursements on external debt, long-term (DIS, current US$)                                                   | 2152041216.890243888     |
+| DT.DIS.OFFT.CD | PPG, official creditors (DIS, current US$)                                                                     | 1958983452.859836046     |
+| DT.AMT.PRVT.CD | PPG, private creditors (AMT, current US$)                                                                      | 1803694101.963265321     |
+| DT.INT.DLXF.CD | Interest payments on external debt, long-term (INT, current US$)                                               | 1644024067.650806481     |
+| DT.DIS.BLAT.CD | PPG, bilateral (DIS, current US$)                                                                              | 1223139290.398230108     |
+| DT.INT.DPNG.CD | Interest payments on external debt, private nonguaranteed (PNG) (INT, current US$)                             | 1220410844.421518983     |
+| DT.AMT.OFFT.CD | PPG, official creditors (AMT, current US$)                                                                     | 1191187963.083064523     |
+| DT.AMT.PBND.CD | PPG, bonds (AMT, current US$)                                                                                  | 1082623947.653623188     |
+
+
+
+
+6-The highest amount of principal repayments
+
+We can see that the indicator DT.AMT.DLXF.CD tops the chart of average debt. This category includes repayment of long term debts. Countries take on long-term debt to acquire immediate capital. 
+
+An interesting observation in the above finding is that there is a huge difference in the amounts of the indicators after the second one. This indicates that the first two indicators might be the most severe categories in which the countries owe their debts.
+
+We can investigate this a bit more so as to find out which country owes the highest amount of debt in the category of long term debts (DT.AMT.DLXF.CD). Since not all countries suffer from the same kind of economic disturbances, this finding will allow us to understand that particular country's economic condition a bit more specifically.
+
+
+
+```sql
+SELECT 
+     country_name,
+    indicator_name
+FROM international_debt
+WHERE debt = (SELECT 
+                 MAX(debt)
+             FROM international_debt
+             WHERE indicator_code = 'DT.AMT.DLXF.CD');
+
+```
+
+
+| country_name | indicator_name                                                |
+| ------------ | ------------------------------------------------------------ |
+| China        | Principal repayments on external debt, long-term (AMT, current US$) |
+
+
+
+
+7- The most common debt indicator
+China has the highest amount of debt in the long-term debt (DT.AMT.DLXF.CD) category. It is often a good idea to verify our analyses like this since it validates that our investigations are correct.
+
+We saw that long-term debt is the topmost category when it comes to the average amount of debt. But is it the most common indicator in which the countries owe their debt? Let's find that out.
+
+
+```sql
+SELECT indicator_code ,
+       COUNT(indicator_code) AS indicator_count
+FROM international_debt 
+GROUP BY indicator_code
+ORDER BY indicator_count DESC , indicator_code DESC
+LIMIT 20;
+
+```
+
+
+
+8- Other viable debt issues and conclusion 
+
+There are a total of six debt indicators in which all the countries listed in our dataset have taken debt. The indicator DT.AMT.DLXF.CD is also there in the list. So, this gives us a clue that all these countries are suffering from a common economic issue. But that is not the end of the story, but just a part of the story.
+
+Let's change tracks from debt_indicators now and focus on the amount of debt again. Let's find out the maximum amount of debt that each country has. With this, we will be in a position to identify the other plausible economic issues a country might be going through.
+
+In this project, we took a look at debt owed by countries across the globe. We extracted a few summary statistics from the data and unraveled some interesting facts and figures. We also validated our findings to make sure the investigations were correct.
+
+```sql
+SELECT country_name,
+      MAX(debt) AS maximum_debt
+FROM international_debt
+GROUP BY country_name
+ORDER BY maximum_debt DESC
+LIMIT 10;
+```
+
+
+
+
+| country_name                                     | maximum_debt          |
+| ------------------------------------------------ | --------------------- |
+| China                                            | 96218620835.70        |
+| Brazil                                           | 90041840304.10        |
+| Russian Federation                               | 66589761833.50        |
+| Turkey                                           | 51555031005.80        |
+| South Asia                                       | 48756295898.20        |
+| Least developed countries: UN classification     | 40160766261.60        |
+| IDA only                                         | 34531188113.20        |
+| India                                            | 31923507000.80        |
+| Indonesia                                        | 30916112653.80        |
+| Kazakhstan                                       | 27482093686.40        |
+
+
 
 
 
