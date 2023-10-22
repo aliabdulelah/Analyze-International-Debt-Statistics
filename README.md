@@ -3,6 +3,10 @@
 ![Dollar](https://github.com/aliabdulelah/Analyze-International-Debt-Statistics/assets/129835709/ab2ba77b-cb12-4269-8c69-1c59ec60ea19)
 
 
+<br>
+<br>
+<br>
+<br>
 
 
 ## Table of contents 
@@ -23,9 +27,10 @@ It's not that we humans only take debts to manage our necessities. A country may
 In this project, you are going to analyze international debt data collected by The World Bank. The dataset contains information about the amount of debt (in USD) owed by developing countries across several categories. You are going to find the answers to questions like:
 
 1- What is the total amount of debt that is owed by the countries listed in the dataset?
-2- Which country owns the maximum amount of debt and what does that amount look like?
-3- What is the average amount of debt owed by countries across different debt indicators?
 
+2- Which country owns the maximum amount of debt and what does that amount look like?
+
+3- What is the average amount of debt owed by countries across different debt indicators?
 
 
 
@@ -41,6 +46,9 @@ In this project, you are going to analyze international debt data collected by T
 - PostgreSQL - Data Cleaning
 - PostgreSQL - Data Analysis
 
+<br>
+<br>
+<br>
 
 
 
@@ -56,7 +64,9 @@ In this project, you are going to analyze international debt data collected by T
 
 
 
-
+<br>
+<br>
+<br>
 
 
 ### Exploratory Data Analysis
@@ -75,6 +85,9 @@ In this project, you are going to analyze international debt data collected by T
 
 
 
+<br>
+<br>
+<br>
 
 
 
@@ -134,7 +147,10 @@ FROM international_debt;
 
 
 
-
+<br>
+<br>
+<br>
+<br>
 
 
 2- Finding out the distinct debt indicators
@@ -181,6 +197,10 @@ ORDER BY distinct_debt_indicators
 
 
 
+<br>
+<br>
+<br>
+<br>
 
 3- Totaling the amount of debt owed by the countries
 
@@ -201,7 +221,10 @@ FROM international_debt;
 
 
 
-
+<br>
+<br>
+<br>
+<br>
 
 
 4- Country with the highest debt
@@ -230,7 +253,10 @@ LIMIT 1
 
 
 
-
+<br>
+<br>
+<br>
+<br>
 
 
 
@@ -268,7 +294,10 @@ LIMIT 10;
 
 
 
-
+<br>
+<br>
+<br>
+<br>
 
 
 6-The highest amount of principal repayments
@@ -300,7 +329,10 @@ WHERE debt = (SELECT
 
 
 
-
+<br>
+<br>
+<br>
+<br>
 
 
 
@@ -321,7 +353,10 @@ LIMIT 20;
 ```
 
 
-
+<br>
+<br>
+<br>
+<br>
 
 
 8- Other viable debt issues and conclusion 
