@@ -2,6 +2,9 @@
 
 ![Dollar](https://github.com/aliabdulelah/Analyze-International-Debt-Statistics/assets/129835709/ab2ba77b-cb12-4269-8c69-1c59ec60ea19)
 
+
+
+
 ## Table of contents 
 - [Project Overview](#project-Overview)
 - [Data Source](#Data-Source)
@@ -9,6 +12,7 @@
 - [ Data Cleaning / Preparation](#Data-Cleaning-/-Preparation)
 - [Exploratory Data Analysis](#Exploratory-Data-Analysis)
 - [Results/Findings](#Data-Analysis-Results-Findings)
+
 
 
 
@@ -23,15 +27,21 @@ In this project, you are going to analyze international debt data collected by T
 3- What is the average amount of debt owed by countries across different debt indicators?
 
 
+
+
 ### Data Source
  The World Bank is the organization that provides debt to countries. The data used in this project is provided by The World Bank. It contains both national and regional debt statistics for several countries across the globe as recorded from 1970 to 2015.
 [Download here AS CSV file](https://docs.google.com/spreadsheets/d/1CHXLssj9_IiVE-nFK8NslvwJSTJ78pBPbzEkgdh1Edg/edit?usp=sharing)
 
 
 
+
+
 ### Tools 
 - PostgreSQL - Data Cleaning
 - PostgreSQL - Data Analysis
+
+
 
 
 
@@ -43,6 +53,8 @@ In this project, you are going to analyze international debt data collected by T
 - Data loading and inspection.
 - Handling missing values.
 - Data cleaning and formatting.
+
+
 
 
 
@@ -62,6 +74,9 @@ In this project, you are going to analyze international debt data collected by T
 
 
 
+
+
+
 Firstly we need to have a look on table information :
 
 
@@ -70,6 +85,9 @@ Firstly we need to have a look on table information :
     FROM international_debt
     LIMIT 10;
 ```
+
+
+
 
 
 
@@ -92,11 +110,13 @@ From the first ten rows, we can see the amount of debt owed by Afghanistan in th
 
 
 
+
 ### Data Analysis Results Findings
 
 1- Finding the number of distinct countries
 
 Without a count of unique countries, we will not be able to perform our statistical analyses holistically. In this section, we are going to extract the number of unique countries present in the table.
+
 
 
 ```sql
@@ -109,6 +129,8 @@ FROM international_debt;
 | total_distinct_countries |
 | ------------------------ |
 |           124            |
+
+
 
 
 
@@ -157,6 +179,8 @@ ORDER BY distinct_debt_indicators
 
 
 
+
+
 3- Totaling the amount of debt owed by the countries
 
 As mentioned earlier, the financial debt of a particular country represents its economic state. But if we were to project this on an overall global scale, how will we approach it?
@@ -173,6 +197,8 @@ FROM international_debt;
 | total_debt |
 | ---------- |
 | 3079734.49 |
+
+
 
 
 
@@ -199,6 +225,9 @@ LIMIT 1
 | country_name | total_debt       |
 | ------------ | ---------------- |
 | China        | 285793494734.20  |
+
+
+
 
 
 
@@ -239,6 +268,8 @@ LIMIT 10;
 
 
 
+
+
 6-The highest amount of principal repayments
 
 We can see that the indicator DT.AMT.DLXF.CD tops the chart of average debt. This category includes repayment of long term debts. Countries take on long-term debt to acquire immediate capital. 
@@ -269,6 +300,9 @@ WHERE debt = (SELECT
 
 
 
+
+
+
 7- The most common debt indicator
 China has the highest amount of debt in the long-term debt (DT.AMT.DLXF.CD) category. It is often a good idea to verify our analyses like this since it validates that our investigations are correct.
 
@@ -284,6 +318,8 @@ ORDER BY indicator_count DESC , indicator_code DESC
 LIMIT 20;
 
 ```
+
+
 
 
 
