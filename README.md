@@ -9,7 +9,7 @@
 - [Project Overview](#project-Overview)
 - [Data Source](#Data-Source)
 - [Tools](#Tools)
-- [ Data Cleaning / Preparation](#Data-Cleaning-/-Preparation)
+- [ Data Cleaning / Preparation](#Data-Cleaning-Preparation)
 - [Exploratory Data Analysis](#Exploratory-Data-Analysis)
 - [Results/Findings](#Data-Analysis-Results-Findings)
 
@@ -46,7 +46,7 @@ In this project, you are going to analyze international debt data collected by T
 
 
 
-### Data Cleaning / Preparation 
+### Data Cleaning Preparation 
 
  In the initial data preparation phase, we performed the following tasks:
 
@@ -60,6 +60,7 @@ In this project, you are going to analyze international debt data collected by T
 
 
 ### Exploratory Data Analysis
+
  EDA involves exploring the American baby name data to answer key questions, such as:
 
 1. Finding the number of distinct countries
