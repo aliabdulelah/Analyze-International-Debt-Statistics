@@ -43,7 +43,7 @@ In this project, you are going to analyze international debt data collected by T
 
 
 ### Tools 
-- PostgreSQL - Data Cleaning
+- Excel - Data Cleaning
 - PostgreSQL - Data Analysis
 
 <br>
